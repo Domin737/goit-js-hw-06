@@ -3,3 +3,35 @@ function getRandomHexColor() {
     .toString(16)
     .padStart(6, 0)}`;
 }
+
+const inputElement = document.querySelector("input");
+const createButton = document.querySelector("button[data-create]");
+const destroyButton = document.querySelector("button[data-destroy]");
+const boxesContainer = document.querySelector("#boxes");
+
+function createBoxes(amount) {
+  const boxes = [];
+  let size = 30;
+
+  for (let i = 0; i < amount; i++) {
+    const box = document.createElement("div");
+    box.style.width = `${size}px`;
+    box.style.height = `${size}px`;
+    box.style.backgroundColor = getRandomHexColor();
+    boxes.push(box);
+    size += 10;
+  }
+
+  boxesContainer.append(...boxes);
+}
+
+function destroyBoxes() {
+  boxesContainer.innerHTML = "";
+}
+
+createButton.addEventListener("click", () => {
+  const amount = Number(inputElement.value);
+  createBoxes(amount);
+});
+
+destroyButton.addEventListener("click", destroyBoxes);
